@@ -1,0 +1,162 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-primary: #FDFCFB;
+  --bg-secondary: #F7F3F0;
+  --accent-solar: #FF8C00;
+  --accent-amber: #FFC107;
+  --text-main: #2D241E;
+  --text-muted: #6B5E54;
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.5);
+}
+
+body {
+  @apply font-['Outfit'] antialiased text-[#2D241E];
+  background: 
+    radial-gradient(circle at 10% 20%, rgba(255, 193, 7, 0.05) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(255, 140, 0, 0.05) 0%, transparent 40%),
+    #FDFCFB;
+  min-height: 100vh;
+  font-size: 1rem; /* Reverting to standard sizing */
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-white/70 backdrop-blur-2xl border border-white/60 shadow-xl shadow-amber-500/5 rounded-[2rem] transition-all duration-500;
+  }
+
+  .glass-card:hover {
+    @apply shadow-2xl shadow-amber-500/10 -translate-y-2 border-amber-200/40;
+  }
+
+  .input-field {
+    @apply w-full bg-white/60 border border-white/80 rounded-2xl px-6 py-4 outline-none transition-all duration-300 focus:bg-white focus:border-amber-400 focus:ring-8 focus:ring-amber-400/10 text-[#2D241E] placeholder:text-gray-400 shadow-sm shadow-black/5;
+  }
+
+  .btn-primary {
+    @apply bg-gradient-to-br from-amber-400 via-orange-500 to-orange-600 text-white font-bold rounded-2xl px-10 py-4 transition-all duration-500 shadow-xl shadow-orange-500/30 hover:shadow-orange-500/50 hover:scale-[1.05] active:scale-95 disabled:opacity-50 tracking-wide;
+  }
+
+  .section-title {
+    @apply text-5xl font-black bg-clip-text text-transparent bg-gradient-to-r from-[#2D241E] via-[#6B5E54] to-[#2D241E] tracking-tighter mb-4;
+  }
+
+  .glow-solar {
+    @apply relative overflow-hidden after:content-[''] after:absolute after:inset-0 after:bg-gradient-to-tr after:from-amber-400/20 after:to-transparent after:pointer-events-none;
+  }
+
+  .nav-link {
+    @apply text-[#6B5E54] hover:text-[#FF8C00] font-medium transition-colors relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-[#FF8C00] after:transition-all hover:after:w-full;
+  }
+
+  .status-badge {
+    @apply px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest;
+  }
+
+  .page-container {
+    @apply container mx-auto px-6 py-12 min-h-screen max-w-7xl;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: #E5E0DA;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover { background: #D1CEC6; }
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 5px rgba(255, 140, 0, 0.2); }
+  50% { box-shadow: 0 0 20px rgba(255, 140, 0, 0.4); }
+}
+
+.glow-hover:hover {
+  animation: glow 2s infinite ease-in-out;
+}
+
+.shimmer {
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Professional Report Print Styles */
+@media print {
+  body { 
+    background: white !important; 
+    padding: 0 !important;
+  }
+  
+  .page-container { 
+    padding: 2cm !important; 
+    max-width: 100% !important; 
+  }
+
+  form, 
+  button, 
+  nav, 
+  select,
+  .print\:hidden,
+  .bg-white\/40 { 
+    display: none !important; 
+  }
+
+  .glass-card {
+    border: 1px solid #eee !important;
+    box-shadow: none !important;
+    break-inside: avoid;
+    background: white !important;
+  }
+
+  .text-transparent {
+    color: #2D241E !important;
+    -webkit-text-fill-color: #2D241E !important;
+  }
+
+  .animate-fade-in {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* Force display of grid in print */
+  .grid {
+    display: grid !important;
+  }
+
+  /* Specific component overrides for professional PDF report */
+  .glass-card .grid button {
+    display: flex !important;
+    background: white !important;
+    color: #2D241E !important;
+    border: 1px solid #eee !important;
+  }
+
+  .glass-card .grid button[class*="bg-[#2D241E]"] {
+    background: #FFC107 !important;
+    color: black !important;
+    border: 2px solid black !important;
+  }
+}

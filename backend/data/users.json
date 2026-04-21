@@ -1,0 +1,32 @@
+[
+  {
+    "id": "5d856fdf-f0b6-43bc-b3f4-bfc82f9d85a7",
+    "username": "harshp",
+    "password": "$2a$10$oEImo4XDm6Knc.qT9TL5FOuZijEdsQrNVcBrUDMQbkdizGZmJVWOq"
+  },
+  {
+    "id": "c8921518-9290-4a5f-919d-de703744bf9c",
+    "username": "Test User",
+    "password": "$2a$10$wogkVfyI5kc.h1hhESpJaOWuXlbhb7LIsO6Utrx13frKwG1pAj1QK"
+  },
+  {
+    "id": "add0c1f4-a2f2-4297-bed6-4741fb949780",
+    "username": "Admin User",
+    "password": "$2a$10$5KUK604XL/mmg4VvYRARmOvjw2/3.8pjimvNQuzWAE6SUjkF8l7J6"
+  },
+  {
+    "id": "df3b8f93-6e11-4de9-b3b1-eb1c9464b5e9",
+    "username": "Final Tester",
+    "password": "$2a$10$oEbmmfJfm5x0iItl/MtHvOutzB5ii31slkKFB/vkBAXCccb0ogRZq"
+  },
+  {
+    "id": "af089ccd-07cf-49ee-8d68-15f6a618cdfe",
+    "username": "HarshP",
+    "password": "$2a$10$a8fL0gtW3szT8aSq/EkEK.igUUQ4987.LT2kR/IBs5sSFWxYDwrjq"
+  },
+  {
+    "id": "64bd8149-62f3-4de3-bc22-6e4092680639",
+    "username": "harsh",
+    "password": "$2a$10$ANsQThpX.YfoBithGpYtLuhDVWoz8ZYL9d9OGhx4XJYhlGdqcSXjO"
+  }
+]

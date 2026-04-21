@@ -1,0 +1,57 @@
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: solsense-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "your_database_password_here"
+      POSTGRES_DB: solsense
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/schema.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - solsense-network
+
+  ml-service:
+    build: ./ml-model
+    container_name: solsense-ml
+    ports:
+      - "5001:5001"
+    networks:
+      - solsense-network
+
+  backend:
+    build: ./backend
+    container_name: solsense-backend
+    ports:
+      - "5002:5002"
+    environment:
+      - DATABASE_URL=postgresql://postgres:your_database_password_here@db:5432/solsense
+      - ML_SERVICE_URL=http://ml-service:5001
+      - PORT=5002
+      - OPENWEATHER_API_KEY=your_openweathermap_api_key_here
+      - JWT_SECRET=your_jwt_secret_here
+    depends_on:
+      - db
+      - ml-service
+    networks:
+      - solsense-network
+
+  frontend:
+    build: ./frontend
+    container_name: solsense-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - solsense-network
+
+networks:
+  solsense-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
