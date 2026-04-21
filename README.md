@@ -122,7 +122,4 @@ SolSense/
 
 ---
 
-## ⚖️ License & Credits
 
-**Copyright © 2026 Team FaloodaCoders**
-Licensed under MIT. Powered by Advanced Solar AI.
