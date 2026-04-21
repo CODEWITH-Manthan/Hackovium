@@ -1,0 +1,58 @@
+services:
+  # 1. PostgreSQL Database
+  - type: database
+    name: solsense-db
+    databaseName: solsense
+    user: solsense_user
+    plan: free
+
+  # 2. Python ML Prediction Service
+  - type: web
+    name: solsense-ml
+    env: python
+    rootDir: ml-model
+    buildCommand: pip install -r requirements.txt
+    startCommand: python model.py
+    plan: free
+    envVars:
+      - key: PORT
+        value: 5001
+
+  # 3. Node.js Backend API
+  - type: web
+    name: solsense-backend
+    env: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    plan: free
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: solsense-db
+          property: connectionString
+      - key: ML_SERVICE_URL
+        fromService:
+          type: web
+          name: solsense-ml
+          property: host
+      - key: JWT_SECRET
+        generateValue: true
+      - key: OPENWEATHER_API_KEY
+        sync: false # User must provide this in Render dashboard
+
+  # 4. React Frontend (Static Site)
+  - type: web
+    name: solsense-frontend
+    env: static
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    publishDir: dist
+    plan: free
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: solsense-backend
+          property: host
+        suffix: /api
